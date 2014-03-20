@@ -14,7 +14,6 @@
 		C1E0F24D18DA716700533CB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0F24C18DA716700533CB6 /* main.m */; };
 		C1E0F25118DA716700533CB6 /* CardMatcherAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0F25018DA716700533CB6 /* CardMatcherAppDelegate.m */; };
 		C1E0F25418DA716700533CB6 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E0F25218DA716700533CB6 /* Main_iPhone.storyboard */; };
-		C1E0F25718DA716700533CB6 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E0F25518DA716700533CB6 /* Main_iPad.storyboard */; };
 		C1E0F25A18DA716700533CB6 /* CardMatcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0F25918DA716700533CB6 /* CardMatcherViewController.m */; };
 		C1E0F25C18DA716700533CB6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1E0F25B18DA716700533CB6 /* Images.xcassets */; };
 		C1E0F26318DA716700533CB6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E0F26218DA716700533CB6 /* XCTest.framework */; };
@@ -46,7 +45,6 @@
 		C1E0F24F18DA716700533CB6 /* CardMatcherAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardMatcherAppDelegate.h; sourceTree = "<group>"; };
 		C1E0F25018DA716700533CB6 /* CardMatcherAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardMatcherAppDelegate.m; sourceTree = "<group>"; };
 		C1E0F25318DA716700533CB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		C1E0F25618DA716700533CB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		C1E0F25818DA716700533CB6 /* CardMatcherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardMatcherViewController.h; sourceTree = "<group>"; };
 		C1E0F25918DA716700533CB6 /* CardMatcherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardMatcherViewController.m; sourceTree = "<group>"; };
 		C1E0F25B18DA716700533CB6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				C1E0F24F18DA716700533CB6 /* CardMatcherAppDelegate.h */,
 				C1E0F25018DA716700533CB6 /* CardMatcherAppDelegate.m */,
 				C1E0F25218DA716700533CB6 /* Main_iPhone.storyboard */,
-				C1E0F25518DA716700533CB6 /* Main_iPad.storyboard */,
 				C1E0F25818DA716700533CB6 /* CardMatcherViewController.h */,
 				C1E0F25918DA716700533CB6 /* CardMatcherViewController.m */,
 				C1E0F25B18DA716700533CB6 /* Images.xcassets */,
@@ -232,7 +229,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1E0F25718DA716700533CB6 /* Main_iPad.storyboard in Resources */,
 				C1E0F25C18DA716700533CB6 /* Images.xcassets in Resources */,
 				C1E0F25418DA716700533CB6 /* Main_iPhone.storyboard in Resources */,
 				C1E0F24B18DA716700533CB6 /* InfoPlist.strings in Resources */,
@@ -293,14 +289,6 @@
 				C1E0F25318DA716700533CB6 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		C1E0F25518DA716700533CB6 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C1E0F25618DA716700533CB6 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		C1E0F26B18DA716700533CB6 /* InfoPlist.strings */ = {
@@ -395,6 +383,7 @@
 				GCC_PREFIX_HEADER = "CardMatcher/CardMatcher-Prefix.pch";
 				INFOPLIST_FILE = "CardMatcher/CardMatcher-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -408,6 +397,7 @@
 				GCC_PREFIX_HEADER = "CardMatcher/CardMatcher-Prefix.pch";
 				INFOPLIST_FILE = "CardMatcher/CardMatcher-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
