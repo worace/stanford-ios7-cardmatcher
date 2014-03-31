@@ -15,9 +15,19 @@
 //designated initializer
 - (instancetype) initWithCardCount:(NSUInteger)count
                          usingDeck:(Deck *)deck;
+
+- (instancetype) initWithMatchMode:(NSString *)matchMode
+                         usingDeck:(Deck *)deck
+                         withCardCount:(NSInteger)count;
+
 - (void) chooseCardAtIndex:(NSUInteger)index;
 - (Card *) cardAtIndex:(NSUInteger)index;
+- (NSInteger) chosenCardCount;
+- (NSInteger) cardMatchingThreshold;
++ (NSString *)matchMode2Card;
++ (NSString *)matchMode3Card;
 
 @property(nonatomic, readonly) NSInteger score;
+@property(strong, nonatomic) NSString *matchMode;
 
 @end

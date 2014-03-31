@@ -97,6 +97,26 @@
     XCTAssertEqual(testGame.score, 0);
 }
 
+- (void)testChosenCardCountGivesCurrentCount {
+    Card *secondCard = [[Card alloc] init];
+    secondCard.contents = self.testCard.contents;
+    [self.testDeck addCard:secondCard];
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithCardCount:2
+                                                                   usingDeck:self.testDeck];
+    
+    [testGame chooseCardAtIndex:0];
+    XCTAssertEqual(1, [testGame chosenCardCount]);
+}
+
+- (void)testCardMatchingThresholdGivesRightAnswerForMatchMode {
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:[CardMatchingGame matchMode2Card] usingDeck:self.testDeck withCardCount:1];
+    
+    XCTAssertEqual(2, [testGame cardMatchingThreshold]);
+    testGame.matchMode = [CardMatchingGame matchMode3Card];
+    XCTAssertEqual(3, [testGame cardMatchingThreshold]);
+}
+
+
 - (void)testChooseCardAtIndexGivesScoreBonusForMatchingChosenCards {
     Card *firstCard = [[Card alloc] init];
     Card *secondCard = [[Card alloc] init];
@@ -174,4 +194,45 @@
     XCTAssertTrue([testGame cardAtIndex:1].isChosen);
 }
 
+- (void)testGameHasGameMatchingMode {
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithCardCount:1
+                                                                   usingDeck:self.testDeck];
+    XCTAssertEqualObjects([CardMatchingGame matchMode2Card], testGame.matchMode);
+}
+
+- (void)testGameAllowsInitWithMatchMode {
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:[CardMatchingGame matchMode3Card] usingDeck:self.testDeck withCardCount:1];
+    XCTAssertEqualObjects([CardMatchingGame matchMode3Card], testGame.matchMode);
+}
+
+- (void)testGameOnlyAcceptsValidMatchModes {
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:@"invalid mode" usingDeck:self.testDeck withCardCount:1];
+    XCTAssertEqualObjects([CardMatchingGame matchMode2Card], testGame.matchMode);
+}
+
+- (void)testGameIn3CardModeMatches3CardsAtOnce {
+
+    Card *firstCard = [[Card alloc] init];
+    Card *secondCard = [[Card alloc] init];
+    Card *thirdCard = [[Card alloc] init];
+
+    firstCard.contents = @"1";
+    secondCard.contents = @"2";
+    thirdCard.contents = @"3";
+
+    
+    Deck *deck = [[Deck alloc] init];
+    [deck addCard:firstCard];
+    [deck addCard:secondCard];
+    [deck addCard:thirdCard];
+    
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:[CardMatchingGame matchMode3Card] usingDeck:deck withCardCount:3];
+    [testGame chooseCardAtIndex:0];
+    [testGame chooseCardAtIndex:1];
+    
+    XCTAssertEqual([testGame chosenCardCount], 2);
+    
+    XCTAssertTrue([testGame cardAtIndex:0].isChosen);
+    XCTAssertTrue([testGame cardAtIndex:1].isChosen);
+}
 @end
