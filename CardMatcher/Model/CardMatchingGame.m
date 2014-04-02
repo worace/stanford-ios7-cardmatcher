@@ -125,9 +125,6 @@
             if ([currentMatchOptions count] == ([self cardMatchingThreshold] - 1)) {
                 int matchScore = [chosenCard match:currentMatchOptions];
                 self.score += matchScore;
-                NSLog(@"***********************");
-                NSLog(@"score: %d", self.score);
-                NSLog(@"matchscore: %d", matchScore);
                 if (matchScore > 0) {
                     chosenCard.matched = YES;
                     for (Card *card in currentMatchOptions) {

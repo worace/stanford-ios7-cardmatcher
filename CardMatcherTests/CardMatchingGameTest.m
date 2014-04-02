@@ -10,6 +10,7 @@
 #import "Card.h"
 #import "Deck.h"
 #import "CardMatchingGame.h"
+#import "PlayingCard.h"
 
 @interface CardMatchingGameTest : XCTestCase
 @property (nonatomic, strong) Card *testCard;
@@ -237,4 +238,77 @@
     XCTAssertEqual([testGame chosenCardCount], 1);
     
 }
+
+- (void)testGameIn3GivesHigherScoreForMultipleMatches {
+    Card *firstCard = [[Card alloc] init];
+    Card *secondCard = [[Card alloc] init];
+    Card *thirdCard = [[Card alloc] init];
+    
+    firstCard.contents = @"2";
+    secondCard.contents = @"2";
+    thirdCard.contents = @"2";
+    
+    Deck *deck = [[Deck alloc] init];
+    [deck addCard:firstCard];
+    [deck addCard:secondCard];
+    [deck addCard:thirdCard];
+    
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:[CardMatchingGame matchMode3Card] usingDeck:deck withCardCount:3];
+    [testGame chooseCardAtIndex:0];
+    [testGame chooseCardAtIndex:1];
+    [testGame chooseCardAtIndex:2];
+    
+    
+    XCTAssertEqual(2, testGame.score);
+}
+
+- (void)testGameIn3CardModeSubtractsForEachNonMatch {
+    Card *firstCard = [[Card alloc] init];
+    Card *secondCard = [[Card alloc] init];
+    Card *thirdCard = [[Card alloc] init];
+    
+    firstCard.contents = @"2";
+    secondCard.contents = @"3";
+    thirdCard.contents = @"5";
+    
+    Deck *deck = [[Deck alloc] init];
+    [deck addCard:firstCard];
+    [deck addCard:secondCard];
+    [deck addCard:thirdCard];
+    
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:[CardMatchingGame matchMode3Card] usingDeck:deck withCardCount:3];
+    [testGame chooseCardAtIndex:0];
+    [testGame chooseCardAtIndex:1];
+    [testGame chooseCardAtIndex:2];
+    
+    XCTAssertEqual(-2, testGame.score);
+   
+}
+
+- (void)test3CardMatchWithPlayingCards {
+    PlayingCard *firstCard = [[PlayingCard alloc] init];
+    PlayingCard *secondCard = [[PlayingCard alloc] init];
+    PlayingCard *thirdCard = [[PlayingCard alloc] init];
+    
+    firstCard.rank = 2;
+    secondCard.rank = 2;
+    thirdCard.rank = 2;
+    
+    firstCard.suit = @"♠";
+    secondCard.suit = @"♠";
+    thirdCard.suit = @"♠";
+    
+    Deck *deck = [[Deck alloc] init];
+    [deck addCard:firstCard];
+    [deck addCard:secondCard];
+    [deck addCard:thirdCard];
+    
+    CardMatchingGame *testGame = [[CardMatchingGame alloc] initWithMatchMode:[CardMatchingGame matchMode3Card] usingDeck:deck withCardCount:3];
+    [testGame chooseCardAtIndex:0];
+    [testGame chooseCardAtIndex:1];
+    [testGame chooseCardAtIndex:2];
+    
+    XCTAssertEqual(32, testGame.score);
+}
+
 @end
