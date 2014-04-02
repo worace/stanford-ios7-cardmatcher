@@ -194,6 +194,7 @@
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
+                        <outlet property="changeModeButton" destination="Xy6-yS-D7j" id="HMm-TS-4Pp"/>
                         <outlet property="scoreLabel" destination="I9I-Bs-rQb" id="ETe-zY-skn"/>
                         <outletCollection property="cardButtons" destination="axm-7J-R2d" id="f6x-ma-dEC"/>
                         <outletCollection property="cardButtons" destination="axm-7J-R2d" id="7Ce-xI-ZVD"/>
