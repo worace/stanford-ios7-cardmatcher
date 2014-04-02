@@ -11,12 +11,10 @@
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards;
+@property (nonatomic, strong) NSMutableArray *faceUpCards;
 @end
 
 @implementation CardMatchingGame
-
-static const int MISMATCH_PENALTY = 2;
-static const int MATCH_BONUS = 4;
 
 + (NSString *)matchMode2Card {
     return @"match_mode_2_card";
@@ -92,13 +90,14 @@ static const int MATCH_BONUS = 4;
     return [chosenCards copy];
 }
 
-- (NSArray *) chosenAvailableCards {
+- (NSArray *) chosenAvailableCards:(Card *)card {
     NSMutableArray *available = [[NSMutableArray alloc] init];
     for (Card *card in [self chosenCards]) {
-        if(card.isMatched) {
+        if(!card.isMatched) {
             [available addObject:card];
         }
     }
+    [available removeObject:card];
     return [available copy];
 //    return [[[self chosenCards] copy] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"isMatched == YES"]];
 
@@ -116,31 +115,34 @@ static const int MATCH_BONUS = 4;
 - (void)chooseCardAtIndex:(NSUInteger)index
 {
     Card *chosenCard = [self cardAtIndex:index];
-
     if (!chosenCard.isMatched) {
         if (chosenCard.isChosen) {
             chosenCard.chosen = NO;
         } else {
             chosenCard.chosen = YES;
-//            if ([self chosenCardCountMeetsMatchingThreshold]) {
-                for (Card *otherCard in self.cards) {
-                    if (otherCard.isChosen && !otherCard.isMatched && [self chosenCardCountMeetsMatchingThreshold]) {
-                        int matchScore = [chosenCard match:@[otherCard]];
-                        if (matchScore) {
-                            self.score += matchScore * MATCH_BONUS;
-                            otherCard.matched = YES;
-                            chosenCard.matched = YES;
-                        } else {
-                            self.score -= MISMATCH_PENALTY;
-                            otherCard.chosen = NO;
-                        }
-                        break;
+            
+            NSArray *currentMatchOptions = [self chosenAvailableCards:chosenCard];
+            if ([currentMatchOptions count] == ([self cardMatchingThreshold] - 1)) {
+                int matchScore = [chosenCard match:currentMatchOptions];
+                self.score += matchScore;
+                NSLog(@"***********************");
+                NSLog(@"score: %d", self.score);
+                NSLog(@"matchscore: %d", matchScore);
+                if (matchScore > 0) {
+                    chosenCard.matched = YES;
+                    for (Card *card in currentMatchOptions) {
+                        card.matched = YES;
                     }
+                } else {
+                    for (Card *card in currentMatchOptions) {
+                        card.chosen = NO;
+                    }
+                    
                 }
-//            }
+            }
         }
     }
-
+    
 }
 
 @end

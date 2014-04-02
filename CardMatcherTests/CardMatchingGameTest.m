@@ -232,7 +232,9 @@
     
     XCTAssertEqual([testGame chosenCardCount], 2);
     
-    XCTAssertTrue([testGame cardAtIndex:0].isChosen);
-    XCTAssertTrue([testGame cardAtIndex:1].isChosen);
+    [testGame chooseCardAtIndex:2];
+    
+    XCTAssertEqual([testGame chosenCardCount], 1);
+    
 }
 @end
